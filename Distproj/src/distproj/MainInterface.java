@@ -12,6 +12,6 @@ import javax.jws.WebService;
 import javax.security.auth.login.LoginException;
 @WebService
 public interface MainInterface {
-    
+     @WebMethod ArrayList<String> login(String username, String password) throws LoginException;
     
 }

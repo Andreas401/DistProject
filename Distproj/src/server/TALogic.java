@@ -13,14 +13,12 @@ import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.jws.WebService;
 import javax.security.auth.login.LoginException;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
-/**
- *
- * @author Andreas
- */
+@WebService(endpointInterface = "distproj.MainInterface")
 public class TALogic implements MainInterface{
     private String uuid;
     public TALogic() {

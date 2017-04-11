@@ -37,6 +37,7 @@ public class Distproj {
             
             String uuid = "";
             String firstname = "", lastname = "";
+            String tempExtra = "";
 
             while(uuid.isEmpty()){
                 System.out.println("Indtast studienummer:");
@@ -51,6 +52,9 @@ public class Distproj {
                         firstname = userinfo.get(0);
                         lastname = userinfo.get(1);
                         uuid = userinfo.get(2);
+                        //tempExtra = userinfo.get(3);
+                        System.out.println("temp: " + userinfo);
+                       
                     }
                 } catch (LoginException ex) {
 //                    System.out.println(ex.getMessage());
@@ -59,6 +63,7 @@ public class Distproj {
             }
             
             System.out.println("Du er logget ind som " + firstname + " " + lastname);
+            
         }
         catch (Exception ex) {
             System.err.println("Kunne ikke forbinde til serveren");

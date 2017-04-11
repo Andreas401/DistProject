@@ -29,8 +29,8 @@ public class Distproj {
             
             // localhost bruges til test på egen computer og ubuntu4 bruges til når du tester
             // med anden server.
-            URL url = new URL("http://ubuntu4.javabog.dk:9978/teacherassistant?wsdl");
-            //URL url = new URL("http://localhost:9978/galgeleg?wsdl");
+            //URL url = new URL("http://ubuntu4.javabog.dk:9978/teacherassistant?wsdl");
+            URL url = new URL("http://localhost:9978/teacherassistant?wsdl");
             QName qname = new QName("http://server/", "TALogicService");
             Service service = Service.create(url, qname);
             MainInterface gameService = service.getPort(MainInterface.class);
@@ -39,7 +39,7 @@ public class Distproj {
             String firstname = "", lastname = "";
 
             while(uuid.isEmpty()){
-                System.out.println("Indtast studienummer");
+                System.out.println("Indtast studienummer:");
                 String username = new Scanner(System.in).nextLine();
                 
                 System.out.println("Indtast password");

@@ -42,6 +42,9 @@ public class TALogic implements MainInterface{
                     userinfo.add(userAuth.hentBruger(username, password).efternavn);
                     uuid = UUID.randomUUID().toString();
                     userinfo.add(uuid);
+                    userAuth.setEkstraFelt(username, password, "roller", "Student");
+                    userinfo.add((String) userAuth.getEkstraFelt(username, password, "roller")); //here i am
+                    
                 }
             } catch (Exception ex) {
 //                Logger.getLogger(GameLogic.class.getName()).log(Level.SEVERE, null, ex);

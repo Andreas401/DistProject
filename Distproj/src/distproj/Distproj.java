@@ -43,7 +43,7 @@ public class Distproj {
                 System.out.println("Indtast studienummer:");
                 String username = new Scanner(System.in).nextLine();
                 
-                System.out.println("Indtast password");
+                System.out.println("Indtast password"); 
                 String password = new Scanner(System.in).nextLine();
                 
                 try {

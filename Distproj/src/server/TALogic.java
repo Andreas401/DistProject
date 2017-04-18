@@ -30,26 +30,7 @@ public class TALogic implements MainInterface{
        
     }
 
-    public static Connection getRemoteConnection(){
-        if(System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com")!= null){
-            try{
-            Class.forName("org.mysql.Driver");
-            String dbName = System.getenv("TAtester");
-            String userName = System.getenv("master");
-            String password = System.getenv("mastertest");
-            String hostname = System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com");
-            String port = System.getenv("3306");
-            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "=user=" + userName + "&password=" + password;
-            System.out.println("Getting remote connection");
-            Connection con = DriverManager.getConnection(jdbcUrl);
-            System.out.println("Remote connection successful");
-            return con;
-        }
-        catch (ClassNotFoundException e) {System.out.println(e);}
-        catch (SQLException e) {System.out.println(e);}
-        }
-        return null;
-    }
+   
     
     public void TALogic(){}
     
@@ -66,9 +47,10 @@ public class TALogic implements MainInterface{
                     userAuth.setEkstraFelt(username, password, "rolle", "student");
                     userinfo.add(userAuth.hentBruger(username, password).fornavn);
                     userinfo.add(userAuth.hentBruger(username, password).efternavn);
-                    userinfo.add(userAuth.getEkstraFelt(username, password, "rolle").toString());
                     uuid = UUID.randomUUID().toString();
                     userinfo.add(uuid);
+                    userAuth.setEkstraFelt(username, password, "roller", setRole(username));
+                    userinfo.add((String) userAuth.getEkstraFelt(username, password, "roller"));
                     
                     
                 }
@@ -87,10 +69,17 @@ public class TALogic implements MainInterface{
         
     }
      
-    public void test(){
-      
+
+    public String setRole(String username){
+        String role;
+        if(username.contains("s1")){
+            role = "student";
+            
+        } else {
+            role = "TA";
+        }
+        return role;
     }
-    
     
     private boolean stillLoggedIn (String uuid) throws LoginException {
         try {

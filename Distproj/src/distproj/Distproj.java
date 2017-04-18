@@ -26,7 +26,7 @@ import server.TALogic;
  * @author Andreas
  */
 public class Distproj {
- public static void main(String[] args) throws Exception{
+ public static void mainx(String[] args) throws Exception{
       Connection conn = null;
         Statement readStatement = null;
         ResultSet resultSet = null;
@@ -59,11 +59,8 @@ public class Distproj {
         System.out.println("hej:" + results);
 
     }
-    public static void mainx(String[] args) {
-        Connection conn = null;
-        Statement readStatement = null;
-        ResultSet resultSet = null;
-        String results = "";
+    public static void main(String[] args) {
+
         try {
             
             // localhost bruges til test på egen computer og ubuntu4 bruges til når du tester
@@ -76,7 +73,6 @@ public class Distproj {
             
             String uuid = "";
             String firstname = "", lastname = "";
-            String test = "";
 
             while(uuid.isEmpty()){
                 System.out.println("Indtast studienummer");
@@ -90,8 +86,9 @@ public class Distproj {
                     if (!userinfo.isEmpty()){
                         firstname = userinfo.get(0);
                         lastname = userinfo.get(1);
-                        uuid = userinfo.get(3);
-                        test = userinfo.get(2);
+                        uuid = userinfo.get(2);
+                        System.out.println("temp: " + userinfo);
+
                         
                     }
                 } catch (LoginException ex) {
@@ -99,30 +96,11 @@ public class Distproj {
                     System.out.println("Der er ingen matchende bruger med de indtastede oplysninger. Prøv igen!");
                 }
                 
-                try{
-        conn = MainInterface.getRemoteConnection();
-        System.out.println("test");
-        String statement = "SELECT * FROM Roles;";
-        System.out.println("1");
-        readStatement = conn.createStatement();
-        System.out.println("2");
-        resultSet = readStatement.executeQuery(statement);
-        System.out.println("3");
-        resultSet.first();
-        System.out.println("4");
-        results = resultSet.getString("roleName");
-        System.out.println("5");
-        resultSet.next();
-        System.out.println("6");
-        results += ", " + resultSet.getString("roleName");
-        System.out.println("hej:" + results);
-        } catch (Exception e){
-                
-                }
+              
             }
             
             System.out.println("Du er logget ind som " + firstname + " " + lastname);
-            System.out.println("din rolle er: "+test);
+
          
         }
         catch (Exception ex) {

@@ -16,26 +16,7 @@ import javax.security.auth.login.LoginException;
 @WebService
 public interface MainInterface {
      @WebMethod ArrayList<String> login(String username, String password) throws LoginException;
-     @WebMethod  public static Connection getRemoteConnection(){
-        if(System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com")!= null){
-            try{
-            Class.forName("org.mysql.Driver");
-            String dbName = System.getenv("TAtester");
-            String userName = System.getenv("master");
-            String password = System.getenv("mastertest");
-            String hostname = System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com");
-            String port = System.getenv("3306");
-            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "=user=" + userName + "&password=" + password;
-            System.out.println("Getting remote connection");
-            Connection con = DriverManager.getConnection(jdbcUrl);
-            System.out.println("Remote connection successful");
-            return con;
-        }
-        catch (ClassNotFoundException e) {System.out.println(e);}
-        catch (SQLException e) {System.out.println(e);}
-        }
-        return null;
-    }
+    
 
      
      

@@ -9,6 +9,9 @@ import brugerautorisation.transport.soap.Brugeradmin;
 import distproj.MainInterface;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -17,14 +20,36 @@ import javax.jws.WebService;
 import javax.security.auth.login.LoginException;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
+import java.util.HashMap;
 
 @WebService(endpointInterface = "distproj.MainInterface")
 public class TALogic implements MainInterface{
     private String uuid;
+    Object test1;
     public TALogic() {
        
     }
 
+    public static Connection getRemoteConnection(){
+        if(System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com")!= null){
+            try{
+            Class.forName("org.mysql.Driver");
+            String dbName = System.getenv("TAtester");
+            String userName = System.getenv("master");
+            String password = System.getenv("mastertest");
+            String hostname = System.getenv("tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com");
+            String port = System.getenv("3306");
+            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "=user=" + userName + "&password=" + password;
+            System.out.println("Getting remote connection");
+            Connection con = DriverManager.getConnection(jdbcUrl);
+            System.out.println("Remote connection successful");
+            return con;
+        }
+        catch (ClassNotFoundException e) {System.out.println(e);}
+        catch (SQLException e) {System.out.println(e);}
+        }
+        return null;
+    }
     
     public void TALogic(){}
     
@@ -38,20 +63,32 @@ public class TALogic implements MainInterface{
             ArrayList<String> userinfo = new ArrayList<String>();
             try {
                 if(!userAuth.hentBruger(username, password).toString().isEmpty()){
+                    userAuth.setEkstraFelt(username, password, "rolle", "student");
                     userinfo.add(userAuth.hentBruger(username, password).fornavn);
                     userinfo.add(userAuth.hentBruger(username, password).efternavn);
+                    userinfo.add(userAuth.getEkstraFelt(username, password, "rolle").toString());
                     uuid = UUID.randomUUID().toString();
                     userinfo.add(uuid);
+                    
+                    
                 }
+                
             } catch (Exception ex) {
 //                Logger.getLogger(GameLogic.class.getName()).log(Level.SEVERE, null, ex);
                 throw new LoginException("Wrong username or password");
             }
+            
             return userinfo;
         } catch (MalformedURLException ex) {
 //            Logger.getLogger(GameLogic.class.getName()).log(Level.SEVERE, null, ex);
             throw new LoginException("No connection to login server");
         }
+        
+        
+    }
+     
+    public void test(){
+      
     }
     
     
@@ -64,6 +101,7 @@ public class TALogic implements MainInterface{
         } catch (Exception ex){
             throw new LoginException("Not logged in");
         }
+        
     }
 
     

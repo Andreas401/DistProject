@@ -17,7 +17,7 @@ public class MainServer {
         MainInterface ta = new TALogic();
         
         
-        Endpoint.publish("http://[::]:9978/teacherassistant", ta);
+        Endpoint.publish("http://[::]:9998/teacherassistant", ta);
        System.out.println("Bottom of the server code!");
 }
 

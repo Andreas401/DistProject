@@ -37,7 +37,7 @@ public class Distproj {
             
             String uuid = "";
             String firstname = "", lastname = "";
-            String tempExtra = "";
+            String role = "";
 
             while(uuid.isEmpty()){
                 System.out.println("Indtast studienummer:");
@@ -52,7 +52,7 @@ public class Distproj {
                         firstname = userinfo.get(0);
                         lastname = userinfo.get(1);
                         uuid = userinfo.get(2);
-                        //tempExtra = userinfo.get(3);
+                        role = userinfo.get(3);
                         System.out.println("temp: " + userinfo);
                        
                     }
@@ -63,7 +63,38 @@ public class Distproj {
             }
             
             System.out.println("Du er logget ind som " + firstname + " " + lastname);
+            Scanner in = new Scanner(System.in);
+            while(gameService.stillLoggedIn(uuid)){
+           
+                 if (role.equals("TA")){
             
+            System.out.println("--------------");
+            System.out.println("1. Se kø");
+            System.out.println("2. Ændre kø status");
+            System.out.println("3. Reset kø");
+            System.out.println("4. rediger kø");
+            System.out.println("5. Log af");
+            System.out.println("--------------");
+            
+             int num = in.nextInt();
+        } else {
+            
+            System.out.println("--------------");
+            System.out.println("Hej student! Du har nu følgende valgmuligheder");
+            System.out.println("1. Se kø");
+            
+            //der skal tjekkes om man er i kø
+            System.out.println("2. Stil i kø for hjælpelære");
+            System.out.println("3. Log af");
+            System.out.println("--------------");
+          
+            int num = in.nextInt();
+            gameService.hentBrugereMenu(role, uuid, num);
+            
+        }
+               
+               
+            }
         }
         catch (Exception ex) {
             System.err.println("Kunne ikke forbinde til serveren");

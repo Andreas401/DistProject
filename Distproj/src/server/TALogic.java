@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -33,6 +35,7 @@ public class TALogic implements MainInterface{
    
     
     public void TALogic(){}
+    
     
      public ArrayList<String> login(String username, String password) throws LoginException{
         try {

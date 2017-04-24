@@ -21,46 +21,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.TALogic;
 
+
 /**
  *
  * @author Andreas
  */
 public class Distproj {
- public static void mainx(String[] args) throws Exception{
-      Connection conn = null;
+
+    public static void main(String[] args) throws Exception {
+
         Statement readStatement = null;
         ResultSet resultSet = null;
         String results = "";
-            Class.forName("com.mysql.jdbc.Driver");
-            String dbName = "TAtest";
-            String userName = "master";
-            String password = "mastertest";
-            String hostname = "tatest.cmfa300zeve9.eu-central-1.rds.amazonaws.com";
-            String port = "3306";
-            String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password;
-            System.out.println("Getting remote connection "+jdbcUrl);
-            DriverManager.getConnection(jdbcUrl);
-            System.out.println("Remote connection successful");
-            System.out.println("test");
-            conn = DriverManager.getConnection(jdbcUrl);
-        String statement = "SELECT * FROM Roles;";
-        System.out.println("1");
-        readStatement = conn.createStatement();
-        System.out.println("2");
-        resultSet = readStatement.executeQuery(statement);
-        System.out.println("3");
-        resultSet.first();
-        System.out.println("4");
-        results = resultSet.getString("roleName");
-        System.out.println("5");
-        resultSet.next();
-        System.out.println("6");
-        results += ", " + resultSet.getString("roleName");
-        System.out.println("hej:" + results);
-
-    }
-    public static void main(String[] args) {
-
         try {
             
             // localhost bruges til test på egen computer og ubuntu4 bruges til når du tester
@@ -70,6 +42,7 @@ public class Distproj {
             QName qname = new QName("http://server/", "TALogicService");
             Service service = Service.create(url, qname);
             MainInterface taService = service.getPort(MainInterface.class);
+            DatabaseTA.getDatabaseTA();
             
             String uuid = "";
             String firstname = "", lastname = "";
@@ -88,6 +61,9 @@ public class Distproj {
                         lastname = userinfo.get(1);
                         uuid = userinfo.get(2);
                         System.out.println("temp: " + userinfo);
+                        DatabaseTA.addToQueue(firstname);
+                        
+                        
 
                         
                     }
@@ -98,7 +74,10 @@ public class Distproj {
                 
               
             }
+            String test = DatabaseTA.getRoleNames();
             
+            System.out.println("ROLES: " + test);
+           
             System.out.println("Du er logget ind som " + firstname + " " + lastname);
 
          

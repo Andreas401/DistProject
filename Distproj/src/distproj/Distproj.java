@@ -43,7 +43,6 @@ public class Distproj {
             QName qname = new QName("http://server/", "TALogicService");
             Service service = Service.create(url, qname);
             MainInterface taService = service.getPort(MainInterface.class);
-            DatabaseUse test2 = new DatabaseUse();
             String uuid = "";
             String firstname = "", lastname = "";
 
@@ -61,7 +60,7 @@ public class Distproj {
                         lastname = userinfo.get(1);
                         uuid = userinfo.get(2);
                         System.out.println("temp: " + userinfo);
-                        test2.addToQueue(firstname);
+                        taService.addToQueue(firstname);
                         
                         
 
@@ -74,7 +73,7 @@ public class Distproj {
                 
               
             }
-            String test = test2.getRoleNames();
+            String test = taService.getRoleNames();
             
             System.out.println("ROLES: " + test);
            

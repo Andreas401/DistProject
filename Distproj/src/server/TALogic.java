@@ -27,6 +27,7 @@ import java.util.HashMap;
 @WebService(endpointInterface = "distproj.MainInterface")
 public class TALogic implements MainInterface{
     private String uuid;
+    Connection conn;
     Object test1;
     public TALogic() {
        
@@ -36,6 +37,34 @@ public class TALogic implements MainInterface{
     
     public void TALogic(){}
     
+    public String getRoleNames() throws Exception{
+        String statement = "";
+        String result = "";
+        Statement readstatement = null;
+        ResultSet resultSet = null;
+        
+        statement = "SELECT * FROM roles;";
+        readstatement = conn.createStatement();
+        resultSet = readstatement.executeQuery(statement);
+        resultSet.first();
+        result = resultSet.getString("roleName");
+        resultSet.next();
+        result += ", " + resultSet.getString("roleName");
+        resultSet.next();
+        result += ", " + resultSet.getString("roleName");
+
+ 
+        return result;
+    }
+    
+    public void addToQueue(String name) throws Exception {
+        
+        Statement st;
+        st = conn.createStatement();
+        
+        st.executeUpdate("INSERT INTO roles (roleName) " + "VALUES ('" + name + "')");
+        
+    }
     
      public ArrayList<String> login(String username, String password) throws LoginException{
         try {

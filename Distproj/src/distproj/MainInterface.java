@@ -16,7 +16,8 @@ import javax.security.auth.login.LoginException;
 @WebService
 public interface MainInterface {
      @WebMethod ArrayList<String> login(String username, String password) throws LoginException;
-
+     @WebMethod public String getRoleNames() throws Exception;
+     @WebMethod public void addToQueue(String name) throws Exception;
 
      
      

@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import server.TALogic;
 
 
+
 /**
  *
  * @author Andreas
@@ -42,8 +43,7 @@ public class Distproj {
             QName qname = new QName("http://server/", "TALogicService");
             Service service = Service.create(url, qname);
             MainInterface taService = service.getPort(MainInterface.class);
-            DatabaseTA.getDatabaseTA();
-            
+            DatabaseUse test2 = new DatabaseUse();
             String uuid = "";
             String firstname = "", lastname = "";
 
@@ -61,7 +61,7 @@ public class Distproj {
                         lastname = userinfo.get(1);
                         uuid = userinfo.get(2);
                         System.out.println("temp: " + userinfo);
-                        DatabaseTA.addToQueue(firstname);
+                        test2.addToQueue(firstname);
                         
                         
 
@@ -74,7 +74,7 @@ public class Distproj {
                 
               
             }
-            String test = DatabaseTA.getRoleNames();
+            String test = test2.getRoleNames();
             
             System.out.println("ROLES: " + test);
            

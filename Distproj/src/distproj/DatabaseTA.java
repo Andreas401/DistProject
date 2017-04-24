@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class DatabaseTA {
     
-    public static Connection getDatabaseTA() throws Exception{
+    public Connection getDatabaseTA() throws Exception{
     
         Connection conn = null;
 
@@ -36,31 +36,5 @@ public class DatabaseTA {
         
     }
     
-    public static String getRoleNames() throws Exception{
-        String statement = "";
-        String result = "";
-        Statement readstatement = null;
-        ResultSet resultSet = null;
-        
-        statement = "SELECT * FROM roles;";
-        readstatement = getDatabaseTA().createStatement();
-        resultSet = readstatement.executeQuery(statement);
-        resultSet.first();
-        result = resultSet.getString("roleName");
-        resultSet.next();
-        result += ", " + resultSet.getString("roleName");
-        resultSet.next();
-        result += ", " + resultSet.getString("roleName");
-
- 
-        return result;
-    }
-    
-    public static void addToQueue(String name) throws Exception {
-        
-        Statement st = getDatabaseTA().createStatement();
-        
-        st.executeUpdate("INSERT INTO roles (roleName) " + "VALUES ('" + name + "')");
-        
-    }
+   
 }
